@@ -1,0 +1,12 @@
+{
+  "name": "gql-ddb-example",
+  "version": "0.0.0",
+  "description": "graphql dynamoDB and arc.codes",
+  "scripts": {
+    "develop": "npx arc sandbox"
+  },
+  "devDependencies": {
+    "@architect/architect": "^8.2.1",
+    "@architect/sandbox": "^3.1.3"
+  }
+}

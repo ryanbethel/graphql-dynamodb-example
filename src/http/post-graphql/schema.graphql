@@ -1,0 +1,33 @@
+type Team {
+    id: ID!
+    name: String
+    members: [User]
+}
+
+type User {
+    id: ID!
+    name: String
+    team: Team
+    credentials: [Credential]
+}
+
+type Certification {
+    id: ID!
+    name: String
+}
+
+type Credential {
+    id: ID!
+    user: User
+    certification: Certification
+    expiration: String
+}
+
+type Query {
+    team(id: ID, name: String): Team
+    user(id: ID, name: String): User
+    cert(id: ID, name: String): Certification
+    allTeams: [Team]
+    allCerts: [Certification]
+    allUsers: [User]
+}
