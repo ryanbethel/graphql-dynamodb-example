@@ -21,22 +21,26 @@ const resolverMap = {
                 return DB_MAP.USER.parseList(user)[0];
             }
         },
-        cert: async (root, args, ctx, info) => {
+        certification: async (root, args, ctx, info) => {
             if (args.id) {
-                const cert = await ctx.db.singletable.get(DB_MAP.CERT.get({ certId: args.id }));
-                return DB_MAP.CERT.parse(cert);
+                const certification = await ctx.db.singletable.get(
+                    DB_MAP.CERTIFICATION.get({ certificationId: args.id })
+                );
+                return DB_MAP.CERTIFICATION.parse(certification);
             } else if (args.name) {
-                const cert = await ctx.db.singletable.query(DB_MAP.CERT.queryByName({ certName: attr.name }));
-                return DB_MAP.TEAM.parseList(cert)[0];
+                const certification = await ctx.db.singletable.query(
+                    DB_MAP.CERTIFICATION.queryByName({ certificationName: args.name })
+                );
+                return DB_MAP.CERTIFICATION.parseList(certification)[0];
             }
         },
         allTeams: async (root, args, ctx, info) => {
             const teams = await ctx.db.singletable.query(DB_MAP.TEAM.queryAll);
             return DB_MAP.TEAM.parseList(teams);
         },
-        allCerts: async (root, args, ctx, info) => {
-            const certs = await ctx.db.singletable.query(DB_MAP.CERT.queryAll);
-            return DB_MAP.CERT.parseList(certs);
+        allCertifications: async (root, args, ctx, info) => {
+            const certifications = await ctx.db.singletable.query(DB_MAP.CERTIFICATION.queryAll);
+            return DB_MAP.CERTIFICATION.parseList(certifications);
         },
         allUsers: async (root, args, ctx, info) => {
             const users = await ctx.db.singletable.query(DB_MAP.USER.queryAll);
@@ -67,8 +71,8 @@ const resolverMap = {
             }
         },
         credentials: async (root, _, ctx) => {
-            const credentials = await ctx.db.singletable.query(DB_MAP.CRED.queryByUserId({ userId: root.id }));
-            return DB_MAP.CRED.parseList(credentials);
+            const credentials = await ctx.db.singletable.query(DB_MAP.CREDENTIAL.queryByUserId({ userId: root.id }));
+            return DB_MAP.CREDENTIAL.parseList(credentials);
         },
     },
 };
