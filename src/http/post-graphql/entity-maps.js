@@ -1,30 +1,18 @@
 const DB_MAP = {
     USER: {
-        get: ({ userId }) => {
-            return {
-                pk: userId,
-                sk: "#",
-            };
-        },
-        put: ({ userId, teamId, userName }) => {
-            return {
-                pk: userId,
-                sk: "#",
-                gsi1pk: "User",
-                gsi1sk: userName,
-                gsi2pk: teamId,
-                _tp: "User",
-                un: userName,
-            };
-        },
-        parseList: (list) => {
-            if (Array.isArray(list)) {
-                return list.map((i) => DB_MAP.USER.parse(i));
-            }
-            if (Array.isArray(list.Items)) {
-                return list.Items.map((i) => DB_MAP.USER.parse(i));
-            }
-        },
+        get: ({ userId }) => ({
+            pk: userId,
+            sk: "#",
+        }),
+        put: ({ userId, teamId, userName }) => ({
+            pk: userId,
+            sk: "#",
+            gsi1pk: "User",
+            gsi1sk: userName,
+            gsi2pk: teamId,
+            _tp: "User",
+            un: userName,
+        }),
         parse: ({ pk, gsi2pk, un, _tp }) => {
             if ((_tp = "User")) {
                 return {
@@ -34,57 +22,41 @@ const DB_MAP = {
                 };
             } else return null;
         },
-        queryByName: ({ userName }) => {
-            return {
-                IndexName: "gsi1pk-gsi1sk-index",
-                ExpressionAttributeNames: { "#gsi1pk": "gsi1pk", "#gsi1sk": "gsi1sk" },
-                KeyConditionExpression: "#gsi1pk = :gsi1pk and #gsi1sk = :gsi1sk)",
-                ExpressionAttributeValues: { ":gsi1pk": "User", ":gsi1sk": userName },
-                ScanIndexForward: true,
-            };
-        },
-        queryByTeamId: ({ teamId }) => {
-            return {
-                IndexName: "gsi2pk-gsi2sk-index",
-                ExpressionAttributeNames: { "#gsi2pk": "gsi2pk" },
-                KeyConditionExpression: "#gsi2pk = :gsi2pk ",
-                ExpressionAttributeValues: { ":gsi2pk": teamId },
-                ScanIndexForward: true,
-            };
-        },
+        queryByName: ({ userName }) => ({
+            IndexName: "gsi1pk-gsi1sk-index",
+            ExpressionAttributeNames: { "#p": "gsi1pk", "#s": "gsi1sk" },
+            KeyConditionExpression: "#p = :p and #s = :s)",
+            ExpressionAttributeValues: { ":p": "User", ":s": userName },
+            ScanIndexForward: true,
+        }),
+        queryByTeamId: ({ teamId }) => ({
+            IndexName: "gsi2pk-gsi2sk-index",
+            ExpressionAttributeNames: { "#p": "gsi2pk" },
+            KeyConditionExpression: "#p = :p ",
+            ExpressionAttributeValues: { ":p": teamId },
+            ScanIndexForward: true,
+        }),
         queryAll: {
             IndexName: "gsi1pk-gsi1sk-index",
-            ExpressionAttributeNames: { "#gsi1pk": "gsi1pk" },
-            KeyConditionExpression: "#gsi1pk = :gsi1pk ",
-            ExpressionAttributeValues: { ":gsi1pk": "User" },
+            ExpressionAttributeNames: { "#p": "gsi1pk" },
+            KeyConditionExpression: "#p = :p ",
+            ExpressionAttributeValues: { ":p": "User" },
             ScanIndexForward: true,
         },
     },
     TEAM: {
-        get: ({ teamId }) => {
-            return {
-                pk: teamId,
-                sk: "#",
-            };
-        },
-        put: ({ teamId, teamName }) => {
-            return {
-                pk: teamId,
-                sk: "#",
-                gsi1pk: "Team",
-                gsi1sk: teamName,
-                _tp: "Team",
-                tn: teamName,
-            };
-        },
-        parseList: (list) => {
-            if (Array.isArray(list)) {
-                return list.map((i) => DB_MAP.TEAM.parse(i));
-            }
-            if (Array.isArray(list.Items)) {
-                return list.Items.map((i) => DB_MAP.TEAM.parse(i));
-            }
-        },
+        get: ({ teamId }) => ({
+            pk: teamId,
+            sk: "#",
+        }),
+        put: ({ teamId, teamName }) => ({
+            pk: teamId,
+            sk: "#",
+            gsi1pk: "Team",
+            gsi1sk: teamName,
+            _tp: "Team",
+            tn: teamName,
+        }),
         parse: ({ pk, tn, _tp }) => {
             if ((_tp = "Team")) {
                 return {
@@ -93,48 +65,34 @@ const DB_MAP = {
                 };
             } else return null;
         },
-        queryByName: ({ teamName }) => {
-            return {
-                IndexName: "gsi1pk-gsi1sk-index",
-                ExpressionAttributeNames: { "#gsi1pk": "gsi1pk", "#gsi1sk": "gsi1sk" },
-                KeyConditionExpression: "#gsi1pk = :gsi1pk AND #gsi1sk = :gsi1sk",
-                ExpressionAttributeValues: { ":gsi1pk": "Team", ":gsi1sk": teamName },
-                ScanIndexForward: true,
-            };
-        },
+        queryByName: ({ teamName }) => ({
+            IndexName: "gsi1pk-gsi1sk-index",
+            ExpressionAttributeNames: { "#p": "gsi1pk", "#s": "gsi1sk" },
+            KeyConditionExpression: "#p = :p AND #s = :s",
+            ExpressionAttributeValues: { ":p": "Team", ":s": teamName },
+            ScanIndexForward: true,
+        }),
         queryAll: {
             IndexName: "gsi1pk-gsi1sk-index",
-            ExpressionAttributeNames: { "#gsi1pk": "gsi1pk" },
-            KeyConditionExpression: "#gsi1pk = :gsi1pk ",
-            ExpressionAttributeValues: { ":gsi1pk": "Team" },
+            ExpressionAttributeNames: { "#p": "gsi1pk" },
+            KeyConditionExpression: "#p = :p ",
+            ExpressionAttributeValues: { ":p": "Team" },
             ScanIndexForward: true,
         },
     },
     CERTIFICATION: {
-        get: ({ certificationId }) => {
-            return {
-                pk: certificationId,
-                sk: "#",
-            };
-        },
-        put: ({ certificationId, certificationName }) => {
-            return {
-                pk: certificationId,
-                sk: "#",
-                gsi1pk: "Certification",
-                gsi1sk: certificationName,
-                _tp: "Certification",
-                cn: certificationName,
-            };
-        },
-        parseList: (list) => {
-            if (Array.isArray(list)) {
-                return list.map((i) => DB_MAP.CERTIFICATION.parse(i));
-            }
-            if (Array.isArray(list.Items)) {
-                return list.Items.map((i) => DB_MAP.CERTIFICATION.parse(i));
-            }
-        },
+        get: ({ certificationId }) => ({
+            pk: certificationId,
+            sk: "#",
+        }),
+        put: ({ certificationId, certificationName }) => ({
+            pk: certificationId,
+            sk: "#",
+            gsi1pk: "Certification",
+            gsi1sk: certificationName,
+            _tp: "Certification",
+            cn: certificationName,
+        }),
         parse: ({ pk, cn, _tp }) => {
             if ((_tp = "Certification")) {
                 return {
@@ -143,68 +101,60 @@ const DB_MAP = {
                 };
             } else return null;
         },
-        queryByName: ({ certificationName }) => {
-            return {
-                IndexName: "gsi1pk-gsi1sk-index",
-                ExpressionAttributeNames: { "#gsi1pk": "gsi1pk", "#gsi1sk": "gsi1sk" },
-                KeyConditionExpression: "#gsi1pk = :gsi1pk and #gsi1sk = :gsi1sk",
-                ExpressionAttributeValues: { ":gsi1pk": "Certification", ":gsi1sk": certificationName },
-                ScanIndexForward: true,
-            };
-        },
+        queryByName: ({ certificationName }) => ({
+            IndexName: "gsi1pk-gsi1sk-index",
+            ExpressionAttributeNames: { "#p": "gsi1pk", "#s": "gsi1sk" },
+            KeyConditionExpression: "#p = :p and #s = :s",
+            ExpressionAttributeValues: { ":p": "Certification", ":s": certificationName },
+            ScanIndexForward: true,
+        }),
         queryAll: {
             IndexName: "gsi1pk-gsi1sk-index",
-            ExpressionAttributeNames: { "#gsi1pk": "gsi1pk" },
-            KeyConditionExpression: "#gsi1pk = :gsi1pk ",
-            ExpressionAttributeValues: { ":gsi1pk": "Certification" },
+            ExpressionAttributeNames: { "#p": "gsi1pk" },
+            KeyConditionExpression: "#p = :p ",
+            ExpressionAttributeValues: { ":p": "Certification" },
             ScanIndexForward: true,
         },
     },
     CREDENTIAL: {
-        get: ({ certificationId, userId }) => {
-            return {
-                pk: userId,
-                sk: certificationId,
-            };
-        },
-        put: ({ certificationId, userId, certificationName, userName, expiration }) => {
-            return {
-                pk: userId,
-                sk: certificationId,
-                gsi1pk: certificationId,
-                gsi1sk: userId,
-                _tp: "Credential",
-                cn: certificationName,
-                un: userName,
-                exp: expiration,
-            };
-        },
-        parseList: (list) => {
-            if (Array.isArray(list)) {
-                return list.map((i) => DB_MAP.CREDENTIAL.parse(i));
-            }
-            if (Array.isArray(list.Items)) {
-                return list.Items.map((i) => DB_MAP.CREDENTIAL.parse(i));
-            }
-        },
+        get: ({ certificationId, userId }) => ({
+            pk: userId,
+            sk: certificationId,
+        }),
+        put: ({ certificationId, userId, certificationName, userName, expiration }) => ({
+            pk: userId,
+            sk: certificationId,
+            gsi1pk: certificationId,
+            gsi1sk: userId,
+            _tp: "Credential",
+            cn: certificationName,
+            un: userName,
+            exp: expiration,
+        }),
         parse: ({ pk, sk, cn, un, exp, _tp }) => {
             if ((_tp = "Credential")) {
                 return {
-                    id: pk + sk,
+                    id: pk + "_" + sk,
                     user: { id: pk, name: un },
                     certification: { id: sk, name: cn },
                     expiration: exp,
                 };
             } else return null;
         },
-        queryByUserId: ({ userId }) => {
-            return {
-                ExpressionAttributeNames: { "#pk": "pk", "#sk": "sk" },
-                KeyConditionExpression: "#pk = :pk and begins_with(#sk,:sk) ",
-                ExpressionAttributeValues: { ":pk": userId, ":sk": "C-" },
-                ScanIndexForward: true,
-            };
-        },
+        queryByUserId: ({ userId }) => ({
+            ExpressionAttributeNames: { "#p": "pk", "#s": "sk" },
+            KeyConditionExpression: "#p = :p and begins_with(#s,:s) ",
+            ExpressionAttributeValues: { ":p": userId, ":s": "C_" },
+            ScanIndexForward: true,
+        }),
+    },
+    parseList: (list, type) => {
+        if (Array.isArray(list)) {
+            return list.map((i) => DB_MAP[type].parse(i));
+        }
+        if (Array.isArray(list.Items)) {
+            return list.Items.map((i) => DB_MAP[type].parse(i));
+        }
     },
 };
 

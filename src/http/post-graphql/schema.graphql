@@ -24,9 +24,12 @@ type Credential {
 }
 
 type Query {
-    team(id: ID, name: String): Team
-    user(id: ID, name: String): User
-    certification(id: ID, name: String): Certification
+    team(id: ID!): Team
+    teamByName(name: String!): [Team]
+    user(id: ID!): User
+    userByName(name: String!): [User]
+    certification(id: ID!): Certification
+    certificationByName(name: String!): [Certification]
     allTeams: [Team]
     allCertifications: [Certification]
     allUsers: [User]
