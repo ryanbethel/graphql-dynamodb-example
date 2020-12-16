@@ -5,3 +5,5 @@ node_modules
 .vscode
 prefs.arc
 preferences.arc
+sam.json
+sam.yaml
