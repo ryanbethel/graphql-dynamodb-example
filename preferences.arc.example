@@ -1,0 +1,3 @@
+@sandbox
+startup
+  node ./sandbox-scripts/seed-db.js "#comment"

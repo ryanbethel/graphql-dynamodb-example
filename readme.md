@@ -1,24 +1,28 @@
-<img src="https://static.begin.app/node-apollo/readme-banner.png" width="888">
+# DynamoDB and GraphQL together
 
-[![Begin build status](https://buildstatus.begin.app/tacos-3qm/status.svg)](https://begin.com)
+This is an example GraphQL API that is backed by DynamoDB and will deploy to AWS serverless technology. For a more detailed explanation of the code see the blog post [here]().
 
-[Apollo](https://www.apollographql.com/) based GraphQL example
+## Getting Started
 
-## Deploy your own
+1. Clone the repository.
+   `git clone https://github.com/rbethel/graphql-dynamodb-example.git`
+2. Install Dependencies.
+   `npm install`
+3. Create your preferences file for seeding local data.
+   `cp preferences.arc.example preferences.arc`
+4. Start the development sandbox.
+   `npx arc sandbox`
+5. Navigate to the graphiQL playground
+   `http://localhost:3333/graphql`
 
-[![Deploy to Begin](https://static.begin.com/deploy-to-begin.svg)](https://begin.com/apps/create?template=https://github.com/begin-examples/node-apollo)
+## Architect Framework
 
-Deploy your own clone of this app to Begin!
+This project uses the Architect Framework ([arc.codes](arc.codes)) to build serverless web apps that deploy to AWS. This is a simplified Infrastructure-as-Code open source project that makes working with AWS much easier.
 
-## Getting started
+## Local Development
 
-- Start the local dev server: `npm start`
-- Lint your code: `npm run lint`
-- Run your tests: `npm t`
+The best part of Architect is that all the infrastructure that it deploys can be easily run in local development using the built in sandbox. This includes DynamoDB tables. There is a small script in the `sandbox-scripts` folder that will seed the local database with development data when you run the local development server.
 
-## Reference
+## Deployment
 
-- [Quickstart](https://docs.begin.com/en/guides/quickstart/) - basics on working locally, project structure, deploying, and accessing your Begin app
-- [Creating new routes](https://docs.begin.com/en/functions/creating-new-functions) - basics on expanding the capabilities of your app
-
-Head to [docs.begin.com](https://docs.begin.com/) to learn more!
+To deploy to AWS only requires a single command. You do need an AWS account. Follow the instructions in the [arc.codes](arc.codes) docs to setup.

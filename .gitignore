@@ -1,4 +1,7 @@
 .arc-env
+.env
 .DS_Store
 node_modules
 .vscode
+prefs.arc
+preferences.arc

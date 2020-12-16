@@ -1,5 +1,5 @@
 const arc = require("@architect/functions");
-const { DB_MAP } = require("../src/http/post-graphql/entity-maps");
+const { DB_MAP } = require("../src/http/post-graphql/db-schema");
 
 const teams = [
     {
@@ -94,14 +94,14 @@ const credentials = [
     },
 ];
 
-async function startUpScript() {
+async function seedDb() {
     const data = await arc.tables();
 
-    for (item of [...teams, ...users, ...certifications, ...credentials]) {
-        await data.singletable.put(item);
-    }
-
-    console.log("startup script run");
+    return Promise.all(
+        [...teams, ...users, ...certifications, ...credentials].map((item) => data.singletable.put(item))
+    );
 }
 
-module.exports = startUpScript;
+seedDb()
+    .then(() => console.log("local database seeded"))
+    .catch((err) => console.log("error:" + err.message));

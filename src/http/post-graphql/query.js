@@ -16,7 +16,6 @@ const schema = makeExecutableSchema({
     resolvers: resolverMap,
 });
 
-/** graphql middleware */
 module.exports = async function query({ body }) {
     const db = await arc.tables();
     const context = { db };

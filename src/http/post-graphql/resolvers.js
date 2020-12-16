@@ -1,4 +1,4 @@
-const { DB_MAP } = require("./entity-maps");
+const { DB_MAP } = require("./db-schema");
 
 const resolverMap = {
     Query: {

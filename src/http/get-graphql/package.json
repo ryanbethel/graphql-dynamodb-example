@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "graphql-playground-middleware-lambda": "^1.7.14"
+    "graphql-playground-middleware-lambda": "^1.7.23"
   }
 }
