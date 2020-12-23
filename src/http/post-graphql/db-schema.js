@@ -1,23 +1,24 @@
 const DB_MAP = {
     USER: {
         get: ({ userId }) => ({
-            pk: userId,
+            pk: "U#" + userId,
             sk: "#",
         }),
         put: ({ userId, teamId, userName }) => ({
-            pk: userId,
+            pk: "U#" + userId,
             sk: "#",
             gsi1pk: "User",
             gsi1sk: userName,
-            gsi2pk: teamId,
+            gsi2pk: "T#" + teamId,
+            gsi2sk: "#",
             _tp: "User",
             un: userName,
         }),
         parse: ({ pk, gsi2pk, un, _tp }) => {
-            if ((_tp = "User")) {
+            if (_tp === "User") {
                 return {
-                    id: pk,
-                    team: { id: gsi2pk },
+                    id: pk.slice(2),
+                    team: { id: gsi2pk.slice(2) },
                     name: un,
                 };
             } else return null;
@@ -25,7 +26,7 @@ const DB_MAP = {
         queryByName: ({ userName }) => ({
             IndexName: "gsi1pk-gsi1sk-index",
             ExpressionAttributeNames: { "#p": "gsi1pk", "#s": "gsi1sk" },
-            KeyConditionExpression: "#p = :p and #s = :s)",
+            KeyConditionExpression: "#p = :p and #s = :s",
             ExpressionAttributeValues: { ":p": "User", ":s": userName },
             ScanIndexForward: true,
         }),
@@ -33,7 +34,7 @@ const DB_MAP = {
             IndexName: "gsi2pk-gsi2sk-index",
             ExpressionAttributeNames: { "#p": "gsi2pk" },
             KeyConditionExpression: "#p = :p ",
-            ExpressionAttributeValues: { ":p": teamId },
+            ExpressionAttributeValues: { ":p": "T#" + teamId },
             ScanIndexForward: true,
         }),
         queryAll: {
@@ -46,11 +47,11 @@ const DB_MAP = {
     },
     TEAM: {
         get: ({ teamId }) => ({
-            pk: teamId,
+            pk: "T#" + teamId,
             sk: "#",
         }),
         put: ({ teamId, teamName }) => ({
-            pk: teamId,
+            pk: "T#" + teamId,
             sk: "#",
             gsi1pk: "Team",
             gsi1sk: teamName,
@@ -58,9 +59,9 @@ const DB_MAP = {
             tn: teamName,
         }),
         parse: ({ pk, tn, _tp }) => {
-            if ((_tp = "Team")) {
+            if (_tp === "Team") {
                 return {
-                    id: pk,
+                    id: pk.slice(2),
                     name: tn,
                 };
             } else return null;
@@ -82,11 +83,11 @@ const DB_MAP = {
     },
     CERTIFICATION: {
         get: ({ certificationId }) => ({
-            pk: certificationId,
+            pk: "C#" + certificationId,
             sk: "#",
         }),
         put: ({ certificationId, certificationName }) => ({
-            pk: certificationId,
+            pk: "C#" + certificationId,
             sk: "#",
             gsi1pk: "Certification",
             gsi1sk: certificationName,
@@ -94,9 +95,9 @@ const DB_MAP = {
             cn: certificationName,
         }),
         parse: ({ pk, cn, _tp }) => {
-            if ((_tp = "Certification")) {
+            if (_tp === "Certification") {
                 return {
-                    id: pk,
+                    id: pk.slice(2),
                     name: cn,
                 };
             } else return null;
@@ -104,7 +105,7 @@ const DB_MAP = {
         queryByName: ({ certificationName }) => ({
             IndexName: "gsi1pk-gsi1sk-index",
             ExpressionAttributeNames: { "#p": "gsi1pk", "#s": "gsi1sk" },
-            KeyConditionExpression: "#p = :p and #s = :s",
+            KeyConditionExpression: "#p = :p AND #s = :s",
             ExpressionAttributeValues: { ":p": "Certification", ":s": certificationName },
             ScanIndexForward: true,
         }),
@@ -118,25 +119,25 @@ const DB_MAP = {
     },
     CREDENTIAL: {
         get: ({ certificationId, userId }) => ({
-            pk: userId,
-            sk: certificationId,
+            pk: "U#" + userId,
+            sk: "C#" + certificationId,
         }),
         put: ({ certificationId, userId, certificationName, userName, expiration }) => ({
-            pk: userId,
-            sk: certificationId,
-            gsi1pk: certificationId,
-            gsi1sk: userId,
+            pk: "U#" + userId,
+            sk: "C#" + certificationId,
+            gsi1pk: "C#" + certificationId,
+            gsi1sk: "U#" + userId,
             _tp: "Credential",
             cn: certificationName,
             un: userName,
             exp: expiration,
         }),
         parse: ({ pk, sk, cn, un, exp, _tp }) => {
-            if ((_tp = "Credential")) {
+            if (_tp === "Credential") {
                 return {
-                    id: pk + "_" + sk,
-                    user: { id: pk, name: un },
-                    certification: { id: sk, name: cn },
+                    id: pk.slice(2) + "_" + sk.slice(2),
+                    user: { id: pk.slice(2), name: un },
+                    certification: { id: sk.slice(2), name: cn },
                     expiration: exp,
                 };
             } else return null;
@@ -144,7 +145,7 @@ const DB_MAP = {
         queryByUserId: ({ userId }) => ({
             ExpressionAttributeNames: { "#p": "pk", "#s": "sk" },
             KeyConditionExpression: "#p = :p and begins_with(#s,:s) ",
-            ExpressionAttributeValues: { ":p": userId, ":s": "C_" },
+            ExpressionAttributeValues: { ":p": "U#" + userId, ":s": "C#" },
             ScanIndexForward: true,
         }),
     },

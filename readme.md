@@ -5,15 +5,25 @@ This is an example GraphQL API that is backed by DynamoDB and will deploy to AWS
 ## Getting Started
 
 1. Clone the repository.
-   `git clone https://github.com/rbethel/graphql-dynamodb-example.git`
+    ```
+    git clone https://github.com/rbethel/graphql-dynamodb-example.git
+    ```
 2. Install Dependencies.
-   `npm install`
+    ```
+    npm install
+    ```
 3. Create your preferences file for seeding local data.
-   `cp preferences.arc.example preferences.arc`
+    ```
+    cp preferences.arc.example preferences.arc
+    ```
 4. Start the development sandbox.
-   `npx arc sandbox`
+    ```
+    npx arc sandbox
+    ```
 5. Navigate to the graphiQL playground
-   `http://localhost:3333/graphql`
+    ```
+    http://localhost:3333/graphql
+    ```
 
 ## Architect Framework
 

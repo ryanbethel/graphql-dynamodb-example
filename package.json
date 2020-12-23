@@ -6,8 +6,13 @@
     "develop": "npx arc sandbox"
   },
   "devDependencies": {
-    "@architect/architect": "^8.3.7",
+    "@architect/architect": "^8.4.4",
     "@architect/functions": "^3.13.8",
     "@architect/sandbox": "^3.3.0"
+  },
+  "dependencies": {
+    "graphql": "^15.4.0",
+    "graphql-playground-middleware-lambda": "^1.7.23",
+    "graphql-tools": "^7.0.2"
   }
 }

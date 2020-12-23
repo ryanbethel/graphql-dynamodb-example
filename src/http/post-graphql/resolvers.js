@@ -14,6 +14,7 @@ const resolverMap = {
             return ctx.db.singletable.get(DB_MAP.USER.get({ userId: args.id })).then((data) => DB_MAP.USER.parse(data));
         },
         userByName: (root, args, ctx, info) => {
+            console.log(DB_MAP.USER.queryByName({ userName: args.name }));
             return ctx.db.singletable
                 .query(DB_MAP.USER.queryByName({ userName: args.name }))
                 .then((data) => DB_MAP.parseList(data, "USER"));
@@ -26,7 +27,10 @@ const resolverMap = {
         certificationByName: (root, args, ctx, info) => {
             return ctx.db.singletable
                 .query(DB_MAP.CERTIFICATION.queryByName({ certificationName: args.name }))
-                .then((data) => DB_MAP.parseList(data, "CERTIFICATION"));
+                .then((data) => {
+                    console.log(data);
+                    return DB_MAP.parseList(data, "CERTIFICATION");
+                });
         },
         allTeams: (root, args, ctx, info) => {
             return ctx.db.singletable.query(DB_MAP.TEAM.queryAll).then((data) => DB_MAP.parseList(data, "TEAM"));
