@@ -1,6 +1,6 @@
 # DynamoDB and GraphQL together
 
-This is an example GraphQL API that is backed by DynamoDB and will deploy to AWS serverless technology. For a more detailed explanation of the code see the blog post [here]().
+This is an example GraphQL API that is backed by DynamoDB and will deploy to AWS serverless technology. For a more detailed explanation of the code see the blog post on [css-tricks](https://css-tricks.com/graphql-and-dynamodb-can-be-friends/).
 
 ## Getting Started
 
@@ -27,7 +27,7 @@ This is an example GraphQL API that is backed by DynamoDB and will deploy to AWS
 
 ## Architect Framework
 
-This project uses the Architect Framework ([arc.codes](arc.codes)) to build serverless web apps that deploy to AWS. This is a simplified Infrastructure-as-Code open source project that makes working with AWS much easier.
+This project uses the Architect Framework ([arc.codes](arc.codes)) to build serverless web apps that deploy to AWS. This is an Infrastructure-as-Code open source project that makes working with AWS much easier.
 
 ## Local Development
 
