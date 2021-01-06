@@ -1,6 +1,6 @@
 # DynamoDB and GraphQL together
 
-This is an example GraphQL API that is backed by DynamoDB and will deploy to AWS serverless technology. For a more detailed explanation of the code see the blog post on [css-tricks](https://css-tricks.com/graphql-and-dynamodb-can-be-friends/).
+This is an example GraphQL API that is backed by DynamoDB and will deploy to AWS serverless technology. For a more detailed explanation of the code see the blog post on [css-tricks](https://css-tricks.com/author/ryanbethel/).
 
 ## Getting Started
 
