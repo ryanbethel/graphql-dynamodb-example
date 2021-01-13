@@ -1,6 +1,6 @@
 # DynamoDB and GraphQL together
 
-This is an example GraphQL API that is backed by DynamoDB and will deploy to AWS serverless technology. For a more detailed explanation of the code see the blog post on [css-tricks](https://css-tricks.com/how-to-make-graphql-and-dynamodb-play-nicely-together/).
+This is an example GraphQL API that is backed by DynamoDB. It will deploy to AWS serverless technology using the Architect framework([arc.codes](arc.codes)). For a more detailed explanation of the code see the blog post on [css-tricks](https://css-tricks.com/how-to-make-graphql-and-dynamodb-play-nicely-together/).
 
 ## Getting Started
 
@@ -23,6 +23,24 @@ This is an example GraphQL API that is backed by DynamoDB and will deploy to AWS
 5. Navigate to the graphiQL playground
     ```
     http://localhost:3333/graphql
+    ```
+6. Run the sample query below
+    ```
+    query { team( id:"t_01" ){
+        id
+        name
+        members{
+            id
+            name
+            credentials{
+                id
+                certification{
+                    id
+                    name
+                }
+            }
+        }
+    }}
     ```
 
 ## Architect Framework
