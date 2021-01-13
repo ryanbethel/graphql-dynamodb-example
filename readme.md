@@ -18,7 +18,7 @@ This is an example GraphQL API that is backed by DynamoDB. It will deploy to AWS
     ```
 4. Start the development sandbox.
     ```
-    npx arc sandbox
+    npm start
     ```
 5. Navigate to the graphiQL playground
     ```

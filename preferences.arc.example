@@ -1,2 +1,2 @@
 @sandbox-startup
-node ./sandbox-scripts/seed-db.js
+node ./scripts/seed-db.js
