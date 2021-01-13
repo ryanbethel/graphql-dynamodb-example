@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "graphql dynamoDB and arc.codes",
   "scripts": {
-    "start": "sandbox"
+    "start": "npx arc sandbox"
   },
   "devDependencies": {
-    "@architect/architect": "^8.4.4",
+    "@architect/architect": "^8.4.5",
     "@architect/functions": "^3.13.8",
     "@architect/sandbox": "^3.3.0"
   },
