@@ -2,6 +2,7 @@
 gql-ddb-example
 
 @http
+get /
 post /graphql
 get /graphql
 

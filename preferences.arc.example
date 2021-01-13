@@ -1,3 +1,2 @@
-@sandbox
-startup
-  node ./sandbox-scripts/seed-db.js "#comment"
+@sandbox-startup
+node ./scripts/seed-db.js
